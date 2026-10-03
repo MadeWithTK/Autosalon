@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avtomobillar Katalogi — AURA MOTORS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       1. CSS VARIABLES & RESET
+       ========================================================================== */
+    :root {
+      --bg-dark: #0a0b0d;
+      --bg-card: #12141a;
+      --bg-card-hover: #1a1d26;
+      --accent-gold: #c5a059;
+      --accent-gold-hover: #d4af37;
+      --text-primary: #f5f5f7;
+      --text-secondary: #8e8e93;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --font-heading: 'Cinzel', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --container-width: 1280px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .container {
+      max-width: var(--container-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==========================================================================
+       2. TYPOGRAPHY & BUTTONS
+       ========================================================================== */
+    h1, h2, h3, h4, .brand-logo {
+      font-family: var(--font-heading);
+      letter-spacing: 1px;
+    }
+
+    .section-subtitle {
+      color: var(--accent-gold);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: var(--transition);
+      border-radius: 2px;
+    }
+
+    .btn-gold {
+      background-color: var(--accent-gold);
+      color: #000;
+    }
+
+    .btn-gold:hover {
+      background-color: var(--accent-gold-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border-color: rgba(255, 255, 255, 0.3);
+      color: var(--text-primary);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================================
+       3. HEADER & NAVIGATION
+       ========================================================================== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 24px 0;
+      background-color: rgba(10, 11, 13, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      transition: var(--transition);
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .brand-logo span {
+      color: var(--accent-gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-link {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-primary);
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--accent-gold);
+    }
+
+    /* ==========================================================================
+       4. PAGE BANNER
+       ========================================================================== */
+    .page-banner {
+      padding: 160px 0 60px;
+      background: linear-gradient(to bottom, rgba(10, 11, 13, 0.6), var(--bg-dark)),
+                  url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      text-align: center;
+    }
+
+    .page-banner h1 {
+      font-size: 3rem;
+      margin-bottom: 12px;
+    }
+
+    .page-banner p {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ==========================================================================
+       5. FILTER & SEARCH CONTROL BAR
+       ========================================================================== */
+    .catalog-controls {
+      padding: 30px 0;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 50px;
+    }
+
+    .controls-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 280px;
+      max-width: 400px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px 16px 12px 42px;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent-gold);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-select {
+      padding: 12px 16px;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      outline: none;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .filter-select:focus {
+      border-color: var(--accent-gold);
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tab-btn {
+      padding: 10px 18px;
+      background-color: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+      background-color: rgba(197, 160, 89, 0.05);
+    }
+
+    /* ==========================================================================
+       6. CAR CATALOG GRID
+       ========================================================================== */
+    .catalog-section {
+      padding-bottom: 100px;
+    }
+
+    .car-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 30px;
+    }
+
+    .car-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .car-card:hover {
+      transform: translateY(-8px);
+      background-color: var(--bg-card-hover);
+      border-color: rgba(197, 160, 89, 0.4);
+    }
+
+    .car-image {
+      position: relative;
+      height: 230px;
+      overflow: hidden;
+    }
+
+    .car-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .car-card:hover .car-image img {
+      transform: scale(1.08);
+    }
+
+    .car-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(10, 11, 13, 0.85);
+      backdrop-filter: blur(4px);
+      color: var(--accent-gold);
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: 1px solid rgba(197, 160, 89, 0.3);
+    }
+
+    .car-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .car-brand {
+      font-size: 0.8rem;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 4px;
+    }
+
+    .car-title {
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+
+    .specs-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 0;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .spec-item span {
+      display: block;
+    }
+
+    .spec-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .spec-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .car-footer {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .car-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+
+    /* ==========================================================================
+       7. CAR SPECIFICATIONS MODAL
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-container {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      max-width: 800px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      border-radius: 4px;
+    }
+
+    .modal-header-img {
+      height: 320px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(10, 11, 13, 0.7);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      z-index: 10;
+    }
+
+    .modal-close-btn:hover {
+      background-color: var(--accent-gold);
+      color: #000;
+    }
+
+    .modal-content {
+      padding: 32px;
+    }
+
+    .modal-car-title {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .modal-car-price {
+      font-size: 1.5rem;
+      color: var(--accent-gold);
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      background-color: var(--bg-dark);
+      padding: 20px;
+      border-radius: 4px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border-color);
+    }
+
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .detail-item .label {
+      color: var(--text-secondary);
+    }
+
+    .detail-item .val {
+      font-weight: 600;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 16px;
+    }
+
+    /* ==========================================================================
+       8. FOOTER
+       ========================================================================== */
+    .footer {
+      background-color: #060708;
+      border-top: 1px solid var(--border-color);
+      padding: 80px 0 30px;
+      font-size: 0.9rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr repeat(3, 1fr);
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .footer-about p {
+      color: var(--text-secondary);
+      margin-top: 16px;
+      max-width: 320px;
+    }
+
+    .footer-heading {
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-gold);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border-color);
+      padding-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .detail-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .controls-wrapper { flex-direction: column; align-items: stretch; }
+      .search-box { max-width: 100%; }
+      .filter-tabs { overflow-x: auto; padding-bottom: 8px; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <nav class="header-nav">
+        <a href="index.html" class="brand-logo">AURA<span>.</span></a>
+        
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Bosh Sahifa</a></li>
+          <li><a href="product.html" class="nav-link active">Avtomobillar</a></li>
+          <li><a href="about.html" class="nav-link">Biz Haqimizda</a></li>
+        </ul>
+
+        <a href="about.html" class="btn btn-gold">Bog'lanish</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- BANNER -->
+  <section class="page-banner">
+    <div class="container">
+      <span class="section-subtitle">Eksklyuziv Garaj</span>
+      <h1>Avtomobillar Katalogi</h1>
+      <p>Aura Motors kolleksiyasidagi eng so'nggi va premium toifadagi superkarlar hamda lyuks avtomobillar bilan tanishing.</p>
+    </div>
+  </section>
+
+  <!-- CATALOG & FILTERS -->
+  <section class="catalog-section">
+    <div class="container">
+      
+      <!-- Controls Bar -->
+      <div class="catalog-controls">
+        <div class="controls-wrapper">
+          
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Model yoki brend nomini kiriting...">
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-tabs">
+              <button class="tab-btn active" data-category="all">Barchasi</button>
+              <button class="tab-btn" data-category="hypercar">Hypercar</button>
+              <button class="tab-btn" data-category="sedan">Sedan</button>
+              <button class="tab-btn" data-category="suv">SUV</button>
+            </div>
+
+            <select class="filter-select" id="sortSelect">
+              <option value="default">Saralash: Standart</option>
+              <option value="price-low">Narx: Arzondan qimmatga</option>
+              <option value="price-high">Narx: Qimmatdan arsonga</option>
+              <option value="power">Quvvat: Yuqoridan pastga</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Car Grid Container -->
+      <div class="car-grid" id="carGrid">
+        <!-- JS orqali dinamik kartochkalar joylanadi -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SPECIFICATION MODAL -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-container">
+      <button class="modal-close-btn" id="closeModal">&times;</button>
+      <img src="" alt="" class="modal-header-img" id="modalImg">
+      
+      <div class="modal-content">
+        <span class="section-subtitle" id="modalBrand">BRAND</span>
+        <h2 class="modal-car-title" id="modalTitle">Car Title</h2>
+        <div class="modal-car-price" id="modalPrice">$0</div>
+
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="label">Ishlab chiqarilgan yili:</span>
+            <span class="val" id="modalYear">2024</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Dvigatel:</span>
+            <span class="val" id="modalEngine">V8 Twin-Turbo</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Ot kuchiga ega:</span>
+            <span class="val" id="modalPower">700 O.K.</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">0-100 km/s tezlanish:</span>
+            <span class="val" id="modalSpeed">2.9 soniya</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Uzatish qutisi:</span>
+            <span class="val" id="modalTrans">8-bosqichli roboti</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Yuruvchi qism:</span>
+            <span class="val" id="modalDrive">AWD (To'liq)</span>
+          </div>
+        </div>
+
+        <p id="modalDesc" style="color: var(--text-secondary); margin-bottom: 24px; font-size: 0.95rem;">
+          Ushbu avtomobil mukammal muhandislik yechimlari va mislsiz qulaylikning timsolidir. Yuksak darajadagi xavfsizlik va dinamika.
+        </p>
+
+        <div class="modal-actions">
+          <a href="about.html" class="btn btn-gold" style="flex: 1;">Buyurtma Berish</a>
+          <button class="btn btn-outline" id="closeModal2" style="flex: 1;">Yopish</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a href="index.html" class="brand-logo">AURA<span>.</span></a>
+          <p>Oʻzbekistondagi eng nufuzli va premium sinfdagi avtomobillarning rasmiy dileri.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Navigatsiya</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Bosh Sahifa</a></li>
+            <li><a href="product.html">Katalog</a></li>
+            <li><a href="about.html">Biz Haqimizda</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Brendlar</h4>
+          <ul class="footer-links">
+            <li><a href="#">Rolls-Royce</a></li>
+            <li><a href="#">Porsche</a></li>
+            <li><a href="#">Bentley</a></li>
+            <li><a href="#">Ferrari</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Aloqa</h4>
+          <ul class="footer-links">
+            <li>Toshkent sh., Amir Temur shoh ko'chasi 108</li>
+            <li>+998 71 200 00 00</li>
+            <li>info@auramotors.uz</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 AURA MOTORS. Barcha huquqlar himoyalangan.</p>
+        <p>Senior Frontend Developer Standard Architecture</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- VANILLA JAVASCRIPT -->
+  <script>
+    // DATA MATRIX FOR CARS
+    const CARS_DATA = [
+      {
+        id: 1,
+        brand: 'Porsche',
+        title: 'Porsche 911 GT3 RS',
+        category: 'hypercar',
+        price: 315000,
+        year: 2024,
+        power: 525,
+        accel: '3.2s',
+        engine: '4.0L Atmospheric Flat-6',
+        trans: '7-speed PDK',
+        drive: 'RWD',
+        status: 'Mavjud',
+        img: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=800&q=80',
+        desc: 'Poyga trassalari uchun maxsus moslashtirilgan, lekin oddiy yo‘llarda ham mukammal harakatlanuvchi muhandislik mojizasi.'
+      },
+      {
+        id: 2,
+        brand: 'Rolls-Royce',
+        title: 'Rolls-Royce Ghost',
+        category: 'sedan',
+        price: 450000,
+        year: 2024,
+        power: 563,
+        accel: '4.8s',
+        engine: '6.75L V12 Twin-Turbo',
+        trans: '8-speed Automatic',
+        drive: 'AWD',
+        status: 'Yangi',
+        img: 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80',
+        desc: 'Murosa bilmas darajadagi jimlik, hashamat va sirli quvvat uygʻunligi. Premium sedanlar qiroli.'
+      },
+      {
+        id: 3,
+        brand: 'Porsche',
+        title: 'Porsche Cayenne Turbo GT',
+        category: 'suv',
+        price: 220000,
+        year: 2023,
+        power: 650,
+        accel: '3.3s',
+        engine: '4.0L V8 Twin-Turbo',
+        trans: '8-speed Tiptronic S',
+        drive: 'AWD',
+        status: 'Mavjud',
+        img: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80',
+        desc: 'SUV toifasidagi eng tezkor va dinamik boshqaruvga ega model. Katta o‘lcham va poyga xarakteri.'
+      },
+      {
+        id: 4,
+        brand: 'Ferrari',
+        title: 'Ferrari SF90 Stradale',
+        category: 'hypercar',
+        price: 620000,
+        year: 2024,
+        power: 1000,
+        accel: '2.5s',
+        engine: 'V8 Hybrid Plug-in',
+        trans: '8-speed Dual-Clutch',
+        drive: 'eAWD',
+        status: 'Eksklyuziv',
+        img: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=800&q=80',
+        desc: 'Ferrari tarixidagi eng kuchli va gibrid texnologiyalarga asoslangan superkar.'
+      },
+      {
+        id: 5,
+        brand: 'Bentley',
+        title: 'Bentley Continental GT',
+        category: 'sedan',
+        price: 290000,
+        year: 2023,
+        power: 626,
+        accel: '3.7s',
+        engine: '6.0L W12 TSI',
+        trans: '8-speed Dual-Clutch',
+        drive: 'AWD',
+        status: 'Mavjud',
+        img: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80',
+        desc: 'Uzoq masofalarga konfort va yuqori tezlikda saqlangan holda sayohat qilish uchun yaratilgan klassik Grand Tourer.'
+      },
+      {
+        id: 6,
+        brand: 'Lamborghini',
+        title: 'Lamborghini Urus Performante',
+        category: 'suv',
+        price: 340000,
+        year: 2024,
+        power: 666,
+        accel: '3.3s',
+        engine: '4.0L V8 Twin-Turbo',
+        trans: '8-speed Automatic',
+        drive: 'AWD',
+        status: 'Yangi',
+        img: 'https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=800&q=80',
+        desc: 'Agressiv dizayn, superkar xarakteri va har qanday yoʻlda yuqori oʻtuvchanlik qobiliyati.'
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const carGrid = document.getElementById('carGrid');
+      const searchInput = document.getElementById('searchInput');
+      const sortSelect = document.getElementById('sortSelect');
+      const tabBtns = document.querySelectorAll('.tab-btn');
+
+      // Modal Elements
+      const modal = document.getElementById('detailModal');
+      const closeModal = document.getElementById('closeModal');
+      const closeModal2 = document.getElementById('closeModal2');
+
+      let activeCategory = 'all';
+
+      // RENDER CAR CARDS
+      function renderCars(data) {
+        carGrid.innerHTML = '';
+
+        if (data.length === 0) {
+          carGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-secondary); padding: 40px;">So'rovingiz bo'yicha hech qanday avtomobil topilmadi.</p>`;
+          return;
+        }
+
+        data.forEach(car => {
+          const card = document.createElement('article');
+          card.className = 'car-card';
+          card.innerHTML = `
+            <div class="car-image">
+              <span class="car-badge">${car.status}</span>
+              <img src="${car.img}" alt="${car.title}">
+            </div>
+            <div class="car-body">
+              <span class="car-brand">${car.brand}</span>
+              <h3 class="car-title">${car.title}</h3>
+              <div class="specs-list">
+                <div class="spec-item">
+                  <span class="spec-value">${car.year}</span>
+                  <span class="spec-label">Yil</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-value">${car.power} O.K.</span>
+                  <span class="spec-label">Quvvat</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-value">${car.accel}</span>
+                  <span class="spec-label">0-100</span>
+                </div>
+              </div>
+              <div class="car-footer">
+                <span class="car-price">$${car.price.toLocaleString()}</span>
+                <button class="btn btn-outline view-detail-btn" data-id="${car.id}">Batafsil</button>
+              </div>
+            </div>
+          `;
+          carGrid.appendChild(card);
+        });
+
+        // Add event listeners to modal buttons
+        document.querySelectorAll('.view-detail-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const carId = parseInt(e.target.getAttribute('data-id'));
+            openCarModal(carId);
+          });
+        });
+      }
+
+      // FILTER & SORT LOGIC
+      function filterAndSortCars() {
+        let result = [...CARS_DATA];
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        const sortValue = sortSelect.value;
+
+        // Category Filter
+        if (activeCategory !== 'all') {
+          result = result.filter(c => c.category === activeCategory);
+        }
+
+        // Search Filter
+        if (searchTerm !== '') {
+          result = result.filter(c => 
+            c.title.toLowerCase().includes(searchTerm) || 
+            c.brand.toLowerCase().includes(searchTerm)
+          );
+        }
+
+        // Sorting
+        if (sortValue === 'price-low') {
+          result.sort((a, b) => a.price - b.price);
+        } else if (sortValue === 'price-high') {
+          result.sort((a, b) => b.price - a.price);
+        } else if (sortValue === 'power') {
+          result.sort((a, b) => b.power - a.power);
+        }
+
+        renderCars(result);
+      }
+
+      // CATEGORY TAB EVENTS
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeCategory = btn.getAttribute('data-category');
+          filterAndSortCars();
+        });
+      });
+
+      // SEARCH & SORT EVENTS
+      searchInput.addEventListener('input', filterAndSortCars);
+      sortSelect.addEventListener('change', filterAndSortCars);
+
+      // OPEN MODAL WITH CAR DETAILS
+      function openCarModal(id) {
+        const car = CARS_DATA.find(c => c.id === id);
+        if (!car) return;
+
+        document.getElementById('modalImg').src = car.img;
+        document.getElementById('modalBrand').textContent = car.brand;
+        document.getElementById('modalTitle').textContent = car.title;
+        document.getElementById('modalPrice').textContent = `$${car.price.toLocaleString()}`;
+        document.getElementById('modalYear').textContent = car.year;
+        document.getElementById('modalEngine').textContent = car.engine;
+        document.getElementById('modalPower').textContent = `${car.power} O.K.`;
+        document.getElementById('modalSpeed').textContent = car.accel;
+        document.getElementById('modalTrans').textContent = car.trans;
+        document.getElementById('modalDrive').textContent = car.drive;
+        document.getElementById('modalDesc').textContent = car.desc;
+
+        modal.classList.add('active');
+      }
+
+      // CLOSE MODAL EVENTS
+      const hideModal = () => modal.classList.remove('active');
+      closeModal.addEventListener('click', hideModal);
+      closeModal2.addEventListener('click', hideModal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) hideModal();
+      });
+
+      // Initial Render
+      renderCars(CARS_DATA);
+    });
+    
+  </script>
+
+</body>
+</html>
